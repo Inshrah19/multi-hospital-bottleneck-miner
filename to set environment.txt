@@ -1,0 +1,221 @@
+Based on your notebooks, here's a **complete step-by-step setup guide** for your group members to run both files without errors. [ppl-ai-file-upload.s3.amazonaws](https://ppl-ai-file-upload.s3.amazonaws.com/web/direct-files/attachments/9024651/1a7486cc-bcd1-4db0-8ae4-e5873a81c5a5/bottleneck_miner.ipynb)
+
+***
+
+## **Complete Environment Setup Guide for Group Members**
+
+### **Prerequisites**
+- Windows 11 (like your setup) [ppl-ai-file-upload.s3.amazonaws](https://ppl-ai-file-upload.s3.amazonaws.com/web/direct-files/attachments/9024651/1a7486cc-bcd1-4db0-8ae4-e5873a81c5a5/bottleneck_miner.ipynb)
+- Python 3.11.9 installed
+- Java 8/11/17 (required for PySpark)
+
+***
+
+### **Step 1: Install Java (Required for PySpark)**
+
+PySpark needs Java to run. [ppl-ai-file-upload.s3.amazonaws](https://ppl-ai-file-upload.s3.amazonaws.com/web/direct-files/attachments/9024651/1a7486cc-bcd1-4db0-8ae4-e5873a81c5a5/bottleneck_miner.ipynb)
+
+```powershell
+# Download and install Temurin JDK 17 from:
+# https://adoptium.net/temurin/releases/?version=17
+
+# After installation, verify:
+java -version
+```
+
+Should show something like `openjdk version "17.0.x"`.
+
+***
+
+### **Step 2: Create Project Folder**
+
+```powershell
+# Create project directory
+mkdir D:\bottleneck-miner
+cd D:\bottleneck-miner
+
+# Create subdirectories
+mkdir data
+mkdir output
+```
+
+***
+
+### **Step 3: Set Up Python Virtual Environment (Python 3.11.9)**
+
+```powershell
+# Create virtual environment with Python 3.11.9
+python -m venv venv
+
+# Activate it
+.\venv\Scripts\activate
+
+# You should see (venv) in your prompt
+```
+
+***
+
+### **Step 4: Install All Required Libraries**
+
+**For PySpark Analysis (`bottleneck_miner.ipynb`):**
+
+```powershell
+# Core PySpark and data science libraries
+pip install pyspark==3.5.1 pandas matplotlib seaborn jupyter findspark pyarrow
+
+# Machine learning library
+pip install scikit-learn
+```
+
+**For Dashboard (`bottle_neck_display.ipynb`):**
+
+```powershell
+# Dashboard libraries
+pip install dash plotly
+```
+
+**Complete installation in one command:**
+
+```powershell
+pip install pyspark==3.5.1 pandas matplotlib seaborn jupyter findspark pyarrow scikit-learn dash plotly
+```
+
+***
+
+### **Step 5: Download the Dataset**
+
+**Option A: Manual Download**
+1. Go to https://www.kaggle.com/datasets/prasad22/healthcare-dataset
+2. Download `healthcare_dataset.csv`
+3. Place it in `D:\bottleneck-miner\data\`
+
+**Option B: Using Kaggle API** (requires Kaggle account)
+
+```powershell
+pip install kaggle
+# Place your kaggle.json in C:\Users\<YourName>\.kaggle\
+kaggle datasets download -d prasad22/healthcare-dataset -p .\data --unzip
+```
+
+***
+
+### **Step 6: Place Your Code Files**
+
+Copy both notebooks to the project folder:
+- `bottleneck_miner.ipynb` → `D:\bottleneck-miner\`
+- `bottle_neck_display.ipynb` → `D:\bottleneck-miner\`
+
+***
+
+### **Step 7: Start Jupyter Notebook**
+
+```powershell
+# Make sure venv is activated
+.\venv\Scripts\activate
+
+# Start Jupyter
+jupyter notebook
+```
+
+Browser will open at `http://localhost:8888/`. [ppl-ai-file-upload.s3.amazonaws](https://ppl-ai-file-upload.s3.amazonaws.com/web/direct-files/attachments/9024651/1a7486cc-bcd1-4db0-8ae4-e5873a81c5a5/bottleneck_miner.ipynb)
+
+***
+
+### **Step 8: Run the Analysis**
+
+1. Open `bottleneck_miner.ipynb`
+2. Run all cells sequentially (Cell → Run All)
+3. Wait for completion (~5-10 minutes depending on machine)
+4. Check `output/` folder for generated files [ppl-ai-file-upload.s3.amazonaws](https://ppl-ai-file-upload.s3.amazonaws.com/web/direct-files/attachments/9024651/1a7486cc-bcd1-4db0-8ae4-e5873a81c5a5/bottleneck_miner.ipynb)
+
+***
+
+### **Step 9: Run the Dashboard**
+
+1. Open `bottle_neck_display.ipynb`
+2. Run all cells
+3. Dashboard will open automatically at `http://127.0.0.1:8461/` [ppl-ai-file-upload.s3.amazonaws](https://ppl-ai-file-upload.s3.amazonaws.com/web/direct-files/attachments/9024651/42aec375-7a66-4f4f-8a32-05f6f7aa7545/bottle_neck_display.ipynb)
+
+***
+
+## **Complete Requirements File**
+
+Save this as `requirements.txt` for easy installation:
+
+```text
+pyspark==3.5.1
+pandas
+matplotlib
+seaborn
+jupyter
+findspark
+pyarrow
+scikit-learn
+dash
+plotly
+```
+
+Install with:
+```powershell
+pip install -r requirements.txt
+```
+
+***
+
+## **Troubleshooting Common Issues**
+
+### **1. Java Not Found**
+```powershell
+# Set JAVA_HOME environment variable
+setx JAVA_HOME "C:\Program Files\Eclipse Adoptium\jdk-17.x.x-hotspot"
+```
+
+### **2. PySpark Import Error**
+Make sure `findspark` is installed and initialized in notebook:
+```python
+import findspark
+findspark.init()
+```
+
+### **3. Dashboard Won't Open**
+- Check port 8461 isn't in use
+- Try changing `PORT = 8461` to `PORT = 8888` in the code [ppl-ai-file-upload.s3.amazonaws](https://ppl-ai-file-upload.s3.amazonaws.com/web/direct-files/attachments/9024651/42aec375-7a66-4f4f-8a32-05f6f7aa7545/bottle_neck_display.ipynb)
+
+***
+
+## **Verification Script**
+
+Save as `verify_setup.py` and run before starting:
+
+```python
+import sys
+print(f"Python version: {sys.version}")
+
+try:
+    import pyspark
+    print("✓ PySpark installed")
+except:
+    print("✗ PySpark missing")
+
+try:
+    import pandas
+    print("✓ Pandas installed")
+except:
+    print("✗ Pandas missing")
+
+try:
+    import dash
+    print("✓ Dash installed")
+except:
+    print("✗ Dash missing")
+
+try:
+    import plotly
+    print("✓ Plotly installed")
+except:
+    print("✗ Plotly missing")
+```
+
+***
+
+Your group members should follow this guide sequentially, and they'll have a working environment matching yours. [ppl-ai-file-upload.s3.amazonaws](https://ppl-ai-file-upload.s3.amazonaws.com/web/direct-files/attachments/9024651/1a7486cc-bcd1-4db0-8ae4-e5873a81c5a5/bottleneck_miner.ipynb)
